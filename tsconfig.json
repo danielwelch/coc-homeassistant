@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "outDir": "lib",
+    "target": "es2017",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "lib": ["es2018", "dom"],
+    "plugins": []
+  },
+  "include": ["src"],
+  "exclude": [],
+  "skipLibCheck": true
+}
