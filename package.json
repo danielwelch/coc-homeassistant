@@ -41,83 +41,84 @@
     "coc.nvim"
   ],
   "contributes": {
-    "configuration": [
-      {
-        "title": "Home Assistant Config Helper",
-        "properties": {
-          "homeassistant.hostUrl": {
-            "type": "string",
-            "description": "The Host URL of your Home Assistant Host, only protocol, host and port (no path or querystring)"
-          },
-          "homeassistant.longLivedAccessToken": {
-            "type": "string",
-            "description": "The Long Lived Access-Token for Home Assistant. Obtain a token via your user profile page in Home Assitant."
-          },
-          "homeassistant.ignoreCertificates": {
-            "type": "boolean",
-            "description": "Enable insecure transport. Check this if you want to connect over an insecure HTTPS transport with an invalid certificate!"
-          }
+    "configuration": {
+      "type": "object",
+      "title": "Home Assistant",
+      "properties": {
+        "homeassistant.hostUrl": {
+          "type": "string",
+          "default": "http://hassio.local",
+          "description": "The Host URL of your Home Assistant Host, only protocol, host and port (no path or querystring)"
+        },
+        "homeassistant.longLivedAccessToken": {
+          "type": "string",
+          "description": "The Long Lived Access-Token for Home Assistant. Obtain a token via your user profile page in Home Assitant."
+        },
+        "homeassistant.ignoreCertificates": {
+          "type": "boolean",
+          "default": false,
+          "description": "Enable insecure transport. Check this if you want to connect over an insecure HTTPS transport with an invalid certificate!"
         }
-      }
-    ],
-    "snippets": [
-      {
-        "language": "home-assistant",
-        "path": "./lib/snippets/homeassistant_automation.json"
       },
-      {
-        "language": "home-assistant",
-        "path": "./lib/snippets/homeassistant_group.json"
-      },
-      {
-        "language": "home-assistant",
-        "path": "./lib/snippets/homeassistant_script.json"
-      },
-      {
-        "language": "home-assistant",
-        "path": "./lib/snippets/homeassistant_sensor.json"
-      }
-    ],
-    "languages": [
-      {
-        "id": "home-assistant",
-        "configuration": "./yaml-language/language-configuration.json",
-        "extensions": [
-          ".yml",
-          ".yaml"
-        ],
-        "aliases": [
-          "Home Assistant"
-        ]
-      }
-    ],
-    "grammars": [
-      {
-        "language": "home-assistant",
-        "scopeName": "source.yaml",
-        "path": "./yaml-language/yaml.tmLanguage.json"
-      }
-    ]
-  },
-  "devDependencies": {
-    "@types/mocha": "^2.2.42",
-    "@types/node": "^10.14.6",
-    "@types/ws": "6.0.1",
-    "@types/yaml": "1.0.2",
-    "ts-node": "8.1.0",
-    "tslint": "^5.16.0",
-    "typescript": "^3.4.5",
-    "typescript-json-schema": "0.36.0",
-    "coc.nvim": "^0.0.67"
-  },
-  "dependencies": {
-    "home-assistant-js-websocket": "4.0.0",
-    "ws": "6.2.0",
-    "vscode-json-languageservice": "3.2.0",
-    "vscode-languageclient": "5.2.1",
-    "vscode-languageserver": "5.3.0-next.1",
-    "yaml-language-server": "0.4.0",
-    "yaml": "1.5.0",
-    "vscode-extension-telemetry": "0.1.1"
+      "snippets": [
+        {
+          "language": "home-assistant",
+          "path": "./lib/snippets/homeassistant_automation.json"
+        },
+        {
+          "language": "home-assistant",
+          "path": "./lib/snippets/homeassistant_group.json"
+        },
+        {
+          "language": "home-assistant",
+          "path": "./lib/snippets/homeassistant_script.json"
+        },
+        {
+          "language": "home-assistant",
+          "path": "./lib/snippets/homeassistant_sensor.json"
+        }
+      ],
+      "languages": [
+        {
+          "id": "home-assistant",
+          "configuration": "./yaml-language/language-configuration.json",
+          "extensions": [
+            ".yml",
+            ".yaml"
+          ],
+          "aliases": [
+            "Home Assistant"
+          ]
+        }
+      ],
+      "grammars": [
+        {
+          "language": "home-assistant",
+          "scopeName": "source.yaml",
+          "path": "./yaml-language/yaml.tmLanguage.json"
+        }
+      ]
+    },
+    "devDependencies": {
+      "@types/mocha": "^2.2.42",
+      "@types/node": "^10.14.6",
+      "@types/ws": "6.0.1",
+      "@types/yaml": "1.0.2",
+      "ts-node": "8.1.0",
+      "tslint": "^5.16.0",
+      "typescript": "^3.4.5",
+      "typescript-json-schema": "0.36.0",
+      "coc.nvim": "^0.0.67"
+    },
+    "dependencies": {
+      "home-assistant-js-websocket": "4.0.0",
+      "ws": "6.2.0",
+      "vscode-json-languageservice": "3.2.0",
+      "vscode-languageclient": "5.2.1",
+      "vscode-languageserver": "5.3.0-next.1",
+      "yaml-language-server": "0.4.0",
+      "yaml": "1.5.0",
+      "vscode-extension-telemetry": "0.1.1"
+    }
   }
 }

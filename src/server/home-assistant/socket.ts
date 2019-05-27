@@ -6,7 +6,7 @@ https://github.com/home-assistant/home-assistant-js-websocket/blob/master/lib/so
 */
 
 import * as ha from "home-assistant-js-websocket";
-import * as WebSocket from "ws";
+import WebSocket from "ws";
 
 const MSG_TYPE_AUTH_REQUIRED = "auth_required";
 const MSG_TYPE_AUTH_INVALID = "auth_invalid";
@@ -35,7 +35,7 @@ export function createSocket(auth: ha.Auth, ignoreCertificates: boolean): Promis
         let invalidAuth = false;
 
         const closeMessage = (ev: { wasClean: boolean; code: number; reason: string; target: WebSocket }) => {
-            let errorMessage;
+            let errorMessage: string;
             if (ev && ev.code && ev.code !== 1000) {
                 errorMessage = `WebSocket connection to Home Assistant closed with code ${ev.code} and reason ${ev.reason}`;
             }
