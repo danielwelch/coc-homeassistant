@@ -1,6 +1,6 @@
 {
   "name": "coc-homeassistant",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Home Assistant extension for coc.nvim, based on vscode-home-assistant.",
   "engines": {
     "coc": ">= 0.0.24"
@@ -22,7 +22,8 @@
     "email": "dwelch2102@gmail.com"
   },
   "scripts": {
-    "build": "tsc -p tsconfig.json"
+    "build": "tsc -p tsconfig.json",
+    "schema": "ts-node src/server/schemas/generateSchemas.ts"
   },
   "activationEvents": [
     "workspaceContains:/configuration.yaml",
