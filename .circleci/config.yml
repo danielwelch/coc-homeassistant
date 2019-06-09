@@ -47,7 +47,7 @@ jobs:
           at: ~/repo
       - run:
           name: Run TSLint
-          command: tslint -c tslint.json --project tsconfig.json
+          command: yarn lint
 
   build:
     <<: *defaults

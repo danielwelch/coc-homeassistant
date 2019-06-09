@@ -106,6 +106,7 @@
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "watch": "tsc -watch -p tsconfig.json",
+    "lint": "tslint -c tslint.json --project tsconfig.json",
     "schema": "ts-node src/server/schemas/generateSchemas.ts"
   },
   "devDependencies": {
