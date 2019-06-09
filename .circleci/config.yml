@@ -109,9 +109,13 @@ workflows:
       - lint:
           requires:
             - checkout
+      - diff:
+          requires:
+            - checkout
       - build:
           requires:
             - lint
+            - diff
 
   release:
     jobs:
@@ -129,6 +133,14 @@ workflows:
               ignore: /.*/
           requires:
             - checkout
+      - diff:
+          filters:
+            tags:
+              only: /v[0-9]+(\.[0-9]+)*/
+            branches:
+              ignore: /.*/
+          requires:
+            - checkout
       - build:
           filters:
             tags:
@@ -137,6 +149,7 @@ workflows:
               ignore: /.*/
           requires:
             - lint
+            - diff
       - deploy:
           filters:
             tags:
