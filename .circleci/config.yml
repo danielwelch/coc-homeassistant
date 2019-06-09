@@ -49,6 +49,28 @@ jobs:
           name: Run TSLint
           command: yarn lint
 
+  diff:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: ~/repo
+      - run:
+          name: Clone keesschollaart81/vscode-home-assistant
+          command: git clone https://github.com/keesschollaart81/vscode-home-assistant.git tmp
+      - run:
+          name: Generate diff for src
+          command: yarn run srcDiff
+      - run:
+          name: Generate diff report for yaml-language
+          command: yarn run yamlDiff
+      - store_artifacts:
+          path: src_diff.html
+          destination: src_diff.html
+      - store_artifacts:
+          path: yaml_diff.html
+          destination: yaml_diff.html
+
+
   build:
     <<: *defaults
     steps:
@@ -71,11 +93,8 @@ jobs:
           command: |
             echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
       - run:
-          name: Install dot-json package
-          command: npm install dot-json
-      - run:
           name: Write version to package.json
-          command: $(yarn bin)/dot-json package.json version ${CIRCLE_TAG:1}
+          command: yarn run updateVersion ${CIRCLE_TAG:1}
       - run:
           name: Publish to NPM
           command: npm publish --access=public

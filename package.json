@@ -1,6 +1,6 @@
 {
   "name": "coc-homeassistant",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Home Assistant extension for coc.nvim, based on vscode-home-assistant.",
   "engines": {
     "coc": ">= 0.0.24"
@@ -107,6 +107,9 @@
     "build": "tsc -p tsconfig.json",
     "watch": "tsc -watch -p tsconfig.json",
     "lint": "tslint -c tslint.json --project tsconfig.json",
+    "updateVersion": "dot-json package.json version",
+    "srcDiff": "diff -u -r tmp/src src | diff2html -s side -f html -d word --file src_diff.html  -i stdin",
+    "yamlDiff": "diff -u -r tmp/yaml-language yaml-language | diff2html -s side -f html -d word --file yaml_diff.html -i stdin",
     "schema": "ts-node src/server/schemas/generateSchemas.ts"
   },
   "devDependencies": {
@@ -118,7 +121,9 @@
     "tslint": "^5.16.0",
     "typescript": "^3.4.5",
     "typescript-json-schema": "0.36.0",
-    "coc.nvim": "^0.0.67"
+    "coc.nvim": "^0.0.67",
+    "dot-json": "1.1.0",
+    "diff2html-cli": "2.7.0"
   },
   "dependencies": {
     "home-assistant-js-websocket": "4.0.0",
