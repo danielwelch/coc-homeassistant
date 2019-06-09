@@ -1,15 +1,15 @@
-import { TextDocuments, CompletionList, TextDocumentChangeEvent, DidChangeWatchedFilesParams, DidOpenTextDocumentParams, TextDocument, Position, CompletionItem, TextEdit, Definition, DefinitionLink, TextDocumentPositionParams, Location, IConnection, Diagnostic } from "vscode-languageserver";
-import { completionHelper } from "./completionHelpers/utils";
-import { YamlIncludeDiscovery } from "./yamlIncludes/discovery";
+import { CompletionItem, CompletionList, Definition, DefinitionLink, Diagnostic, IConnection, Position, TextDocument, TextDocumentChangeEvent, TextDocumentPositionParams, TextDocuments, TextEdit } from "vscode-languageserver";
 import { parse as parseYAML } from "yaml-language-server/out/server/src/languageservice/parser/yamlParser";
-import { YamlLanguageServiceWrapper } from "./yamlLanguageServiceWrapper";
-import { SchemaServiceForIncludes } from "./schemas/schemaService";
-import { EntityIdCompletionContribution } from "./completionHelpers/entityIds";
 import { getLineOffsets } from "yaml-language-server/out/server/src/languageservice/utils/arrUtils";
-import { HaConnection } from "./home-assistant/haConnection";
+import { EntityIdCompletionContribution } from "./completionHelpers/entityIds";
 import { ServicesCompletionContribution } from "./completionHelpers/services";
-import { Includetype } from "./yamlIncludes/dto";
+import { completionHelper } from "./completionHelpers/utils";
 import { DefinitionProvider } from "./definition";
+import { HaConnection } from "./home-assistant/haConnection";
+import { SchemaServiceForIncludes } from "./schemas/schemaService";
+import { YamlIncludeDiscovery } from "./yamlIncludes/discovery";
+import { Includetype } from "./yamlIncludes/dto";
+import { YamlLanguageServiceWrapper } from "./yamlLanguageServiceWrapper";
 export class HomeAssistantLanguageService {
 
     private schemaServiceForIncludes: SchemaServiceForIncludes;
@@ -128,7 +128,6 @@ export class HomeAssistantLanguageService {
         let textDocument = this.documents.get(
             textDocumentPosition.textDocument.uri
         );
-
         let result: CompletionList = {
             items: [],
             isIncomplete: false
@@ -140,7 +139,7 @@ export class HomeAssistantLanguageService {
 
         let completionFix = completionHelper(textDocument, textDocumentPosition.position);
 
-        let newText = completionFix.newText;
+        let newText: string = completionFix.newText;
         let jsonDocument = parseYAML(newText);
 
         var completions: CompletionList = await this.yamlLanguageService.doComplete(textDocument, textDocumentPosition.position, jsonDocument);
@@ -218,6 +217,8 @@ export class HomeAssistantLanguageService {
                     additionalCompletion = await this.haConnection.getServiceCompletions();
                 }
                 break;
+            default:
+                break;
         }
         return additionalCompletion;
     }
@@ -240,7 +241,7 @@ export class HomeAssistantLanguageService {
                 currentLine--;
                 continue;
             }
-            for (var key in properties) {
+            for (let key in properties) {
                 if (properties[key].some(propertyName => new RegExp(`(.*)${propertyName}(:)([\s]*)([\w]*)(\s*)`).test(thisLine))) {
                     return key;
                 }

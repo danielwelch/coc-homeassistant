@@ -1,45 +1,39 @@
-// import * as fs from 'fs';
-import * as path from 'path';
-// import * as vscode from 'vscode';
 // import { LanguageClient, LanguageClientOptions, TransportKind, ServerOptions } from 'vscode-languageclient';
-import { LanguageClient, LanguageClientOptions, TransportKind, ServerOptions, ExtensionContext, workspace, languages } from 'coc.nvim';
-// import TelemetryReporter from 'vscode-extension-telemetry';
+import { ExtensionContext, LanguageClient, LanguageClientOptions, ServerOptions, TransportKind, workspace } from 'coc.nvim';
+import * as path from 'path';
 
-// const myExtensionId = 'vscode-home-assistant';
-// const telemetryVersion = generateVersionString(vscode.extensions.getExtension(`keesschollaart.${myExtensionId}`));
-
-// let reporter: TelemetryReporter;
 
 const documentSelector = [
     { language: 'home-assistant', scheme: 'file' },
     { language: 'home-assistant', scheme: 'untitled' }
+    // { language: 'yaml', scheme: 'file' },
+    // { language: 'yaml', scheme: 'untitled' } 
 ];
 
-export function activate(context: ExtensionContext) {
-    console.log('Home Assistant Extension has been activated!');
+export function activate(context: ExtensionContext): Promise<void> {
 
-    // reporter = new TelemetryReporter(myExtensionId, telemetryVersion, 'ff172110-5bb2-4041-9f31-e157f1efda56');
-    // try {
-    //     reporter.sendTelemetryEvent('extension.activate');
-    // } catch (e) {
-    //     // if something bad happens reporting telemetry, swallow it and move on
-    //     console.log(`${e}`);
-    // }
+    const config = workspace.getConfiguration().get<any>('homeassistant', {}) as any;
+    if (!config.enable) {
+        return;
+    }
 
-    let serverModule = path.join(context.extensionPath, 'lib', 'server', 'server.js');
+    const serverModule = path.join(context.extensionPath, 'lib', 'server', 'server.js');
 
-    let debugOptions = { execArgv: ['--nolazy', "--inspect=6003"] };
+    const debugOptions = { execArgv: ['--nolazy', "--inspect=6003"] };
 
     let serverOptions: ServerOptions = {
         run: { module: serverModule, transport: TransportKind.ipc },
-        debug: { module: serverModule, transport: TransportKind.ipc, options: debugOptions }
+        debug: { module: serverModule, transport: TransportKind.ipc, options: debugOptions },
+        options: {
+            cwd: workspace.root
+        }
     };
 
     let clientOptions: LanguageClientOptions = {
         documentSelector,
         synchronize: {
             configurationSection: 'homeassistant',
-            fileEvents: workspace.createFileSystemWatcher('**/*.?(e)y?(a)ml')
+            fileEvents: workspace.createFileSystemWatcher('**/*.yaml')
         },
         outputChannelName: 'homeassistant',
 
@@ -54,6 +48,7 @@ export function activate(context: ExtensionContext) {
     context.subscriptions.push(client.start());
 
     client.onReady().then(async () => {
+        console.log("Home Assistant extension activated and ready.")
         client.onNotification("no-config", async () => {
             console.error("ERROR: No configuration for coc-homeassistant. Please configure coc-homeassistant");
         });
@@ -63,9 +58,13 @@ export function activate(context: ExtensionContext) {
     });
 
     let fileAssociations = workspace.getConfiguration().get("files.associations");
-    if (!fileAssociations["*.yaml"]) {
+    if (!fileAssociations) {
+        workspace.getConfiguration().update("files.associations", { "*.yaml": "home-assistant" }, false);
+    } else if (!fileAssociations["*.yaml"]) {
         workspace.getConfiguration().update("files.associations", { "*.yaml": "home-assistant" }, false);
     }
+    
+    return;
 }
 
 export function deactivate() {

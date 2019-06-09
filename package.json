@@ -1,6 +1,6 @@
 {
   "name": "coc-homeassistant",
-  "version": "0.0.2",
+  "version": "0.0.1",
   "description": "Home Assistant extension for coc.nvim, based on vscode-home-assistant.",
   "engines": {
     "coc": ">= 0.0.24"
@@ -21,11 +21,8 @@
     "url": "https://github.com/danielwelch/coc-homeassistant/issues",
     "email": "dwelch2102@gmail.com"
   },
-  "scripts": {
-    "build": "tsc -p tsconfig.json",
-    "schema": "ts-node src/server/schemas/generateSchemas.ts"
-  },
   "activationEvents": [
+    "onLanguage:home-assistant",
     "workspaceContains:/configuration.yaml",
     "workspaceContains:/ui-lovelace.yaml",
     "onFileSystem:ftp",
@@ -46,6 +43,11 @@
       "type": "object",
       "title": "Home Assistant",
       "properties": {
+        "homeassistant.enable": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable the Home Assistant Extension."
+        },
         "homeassistant.hostUrl": {
           "type": "string",
           "default": "http://hassio.local",
@@ -99,27 +101,32 @@
           "path": "./yaml-language/yaml.tmLanguage.json"
         }
       ]
-    },
-    "devDependencies": {
-      "@types/mocha": "^2.2.42",
-      "@types/node": "^10.14.6",
-      "@types/ws": "6.0.1",
-      "@types/yaml": "1.0.2",
-      "ts-node": "8.1.0",
-      "tslint": "^5.16.0",
-      "typescript": "^3.4.5",
-      "typescript-json-schema": "0.36.0",
-      "coc.nvim": "^0.0.67"
-    },
-    "dependencies": {
-      "home-assistant-js-websocket": "4.0.0",
-      "ws": "6.2.0",
-      "vscode-json-languageservice": "3.2.0",
-      "vscode-languageclient": "5.2.1",
-      "vscode-languageserver": "5.3.0-next.1",
-      "yaml-language-server": "0.4.0",
-      "yaml": "1.5.0",
-      "vscode-extension-telemetry": "0.1.1"
     }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "watch": "tsc -watch -p tsconfig.json",
+    "schema": "ts-node src/server/schemas/generateSchemas.ts"
+  },
+  "devDependencies": {
+    "@types/mocha": "^2.2.42",
+    "@types/node": "^10.14.6",
+    "@types/ws": "6.0.1",
+    "@types/yaml": "1.0.2",
+    "ts-node": "8.1.0",
+    "tslint": "^5.16.0",
+    "typescript": "^3.4.5",
+    "typescript-json-schema": "0.36.0",
+    "coc.nvim": "^0.0.67"
+  },
+  "dependencies": {
+    "home-assistant-js-websocket": "4.0.0",
+    "ws": "6.2.0",
+    "vscode-json-languageservice": "3.2.0",
+    "vscode-languageclient": "5.2.1",
+    "vscode-languageserver": "5.3.0-next.1",
+    "yaml-language-server": "0.4.0",
+    "yaml": "1.5.0",
+    "vscode-extension-telemetry": "0.1.1"
   }
 }

@@ -1,15 +1,22 @@
-import { createConnection, TextDocuments, ProposedFeatures, ServerCapabilities } from "vscode-languageserver";
+import { createConnection, InitializeParams, InitializeResult, ProposedFeatures, ServerCapabilities, TextDocuments } from "vscode-languageserver";
+import { EntityIdCompletionContribution } from "./completionHelpers/entityIds";
+import { ServicesCompletionContribution } from "./completionHelpers/services";
+import { ConfigurationService } from "./configuration";
+import { DefinitionProvider } from "./definition";
 import { VsCodeFileAccessor } from "./fileAccessor";
 import { HomeAssistantLanguageService } from "./haLanguageService";
 import { HaConnection } from "./home-assistant/haConnection";
-import { YamlLanguageServiceWrapper } from "./yamlLanguageServiceWrapper";
-import { EntityIdCompletionContribution } from "./completionHelpers/entityIds";
-import { ConfigurationService } from "./configuration";
-import { ServicesCompletionContribution } from "./completionHelpers/services";
 import { YamlIncludeDiscovery } from "./yamlIncludes/discovery";
-import { DefinitionProvider } from "./definition";
+import { YamlLanguageServiceWrapper } from "./yamlLanguageServiceWrapper";
 
-let connection = createConnection(ProposedFeatures.all);
+ const connection = createConnection(ProposedFeatures.all);
+
+// process.on('unhandledRejection', (e: any) => {
+// 	console.error(formatError(`Unhandled exception`, e));
+// });
+// process.on('uncaughtException', (e: any) => {
+// 	console.error(formatError(`Unhandled exception`, e));
+// });
 
 console.log = connection.console.log.bind(connection.console);
 // console.error = connection.console.error.bind(connection.console);
@@ -19,7 +26,7 @@ console.error = connection.window.showErrorMessage.bind(connection.window);
 let documents = new TextDocuments();
 documents.listen(connection);
 
-connection.onInitialize(async params => {
+connection.onInitialize(async (params: InitializeParams): Promise<InitializeResult> => {
 
   connection.console.log(`[Server(${process.pid})] Started and initialize received`);
 
