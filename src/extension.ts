@@ -1,5 +1,5 @@
 // import { LanguageClient, LanguageClientOptions, TransportKind, ServerOptions } from 'vscode-languageclient';
-import { ExtensionContext, LanguageClient, LanguageClientOptions, ServerOptions, TransportKind, workspace } from 'coc.nvim';
+import {ExtensionContext, LanguageClient, LanguageClientOptions, ServerOptions, TransportKind, workspace} from 'coc.nvim';
 import * as path from 'path';
 
 
@@ -48,7 +48,7 @@ export function activate(context: ExtensionContext): Promise<void> {
     context.subscriptions.push(client.start());
 
     client.onReady().then(async () => {
-        console.log("Home Assistant extension activated and ready.")
+        console.log("Home Assistant extension activated and ready.");
         client.onNotification("no-config", async () => {
             console.error("ERROR: No configuration for coc-homeassistant. Please configure coc-homeassistant");
         });

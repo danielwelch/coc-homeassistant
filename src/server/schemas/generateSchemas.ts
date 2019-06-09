@@ -11,7 +11,7 @@ const settings: TJS.PartialArgs = {
 
 const compilerOptions: TJS.CompilerOptions = {
     strictNullChecks: true
-}
+};
 
 var jsonPath = path.join(__dirname, "mappings.json");
 var filecontents = fs.readFileSync(jsonPath, "utf-8");
