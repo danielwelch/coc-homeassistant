@@ -5,7 +5,7 @@
     <img src="https://circleci.com/gh/danielwelch/coc-homeassistant.svg?style=svg">
   </a>
   <a style="margin-left: 0.5rem;" href="https://www.npmjs.com/package/coc-homeassistant">
-    <img src="https://img.shields.io/npm/dw/coc-homeassistant.svg?logo=npm&style=flat-square">
+    <img src="https://img.shields.io/npm/v/coc-homeassistant.svg?label=%20npm&style=flat-square">
   </a>
 </div>
 <br>
