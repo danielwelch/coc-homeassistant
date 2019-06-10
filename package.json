@@ -1,6 +1,6 @@
 {
   "name": "coc-homeassistant",
-  "version": "0.0.2",
+  "version": "master",
   "description": "Home Assistant extension for coc.nvim, based on vscode-home-assistant.",
   "engines": {
     "coc": ">= 0.0.24"
