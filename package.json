@@ -109,30 +109,18 @@
     "lint": "tslint -c tslint.json --project tsconfig.json",
     "updateVersion": "dot-json package.json version",
     "srcDiff": "diff -u -r tmp/src src | diff2html -s side -f html -d word --file src_diff.html  -i stdin",
-    "yamlDiff": "diff -u -r tmp/yaml-language yaml-language | diff2html -s side -f html -d word --file yaml_diff.html -i stdin",
-    "schema": "ts-node src/server/schemas/generateSchemas.ts"
+    "yamlDiff": "diff -u -r tmp/yaml-language yaml-language | diff2html -s side -f html -d word --file yaml_diff.html -i stdin"
   },
   "devDependencies": {
-    "@types/mocha": "^2.2.42",
     "@types/node": "^10.14.6",
-    "@types/ws": "6.0.1",
-    "@types/yaml": "1.0.2",
     "ts-node": "8.1.0",
     "tslint": "^5.16.0",
     "typescript": "^3.4.5",
-    "typescript-json-schema": "0.36.0",
     "coc.nvim": "^0.0.67",
     "dot-json": "1.1.0",
     "diff2html-cli": "2.7.0"
   },
   "dependencies": {
-    "home-assistant-js-websocket": "4.0.0",
-    "ws": "6.2.0",
-    "vscode-json-languageservice": "3.2.0",
-    "vscode-languageclient": "5.2.1",
-    "vscode-languageserver": "5.3.0-next.1",
-    "yaml-language-server": "0.4.0",
-    "yaml": "1.5.0",
-    "vscode-extension-telemetry": "0.1.1"
+    "home-assistant-language-service": "1.0.9"
   }
 }
