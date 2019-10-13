@@ -24,3 +24,6 @@ Add the following settings to your coc-settings.json (`:CocConfig`):
 - `homeassistant.hostUrl`: The Host URL of your Home Assistant instance. Only protocol, host, and port (no path or querystring). Defaults to `http://hassio.local`
 - `homeassistant.longLivedAccessToken`: The Long Lived Access-Token for Home Assistant. Obtain a token via your user profile page in Home Assitant.
 - `homeassistant.ignoreCertificates`: Enable insecure transport. Check this if you want to connect over an insecure HTTPS transport with an invalid certificate. Defaults to `false`
+
+## Credit
+This package is merely a port of the great work done on [vscode-home-assistant](https://github.com/keesschollaart81/vscode-home-assistant) by [keesschollaart81](https://github.com/keesschollaart81).
