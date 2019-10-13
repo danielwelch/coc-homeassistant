@@ -23,8 +23,8 @@
   },
   "activationEvents": [
     "onLanguage:home-assistant",
-    "workspaceContains:/configuration.yaml",
-    "workspaceContains:/ui-lovelace.yaml",
+    "workspaceContains:configuration.yaml",
+    "workspaceContains:ui-lovelace.yaml",
     "onFileSystem:ftp",
     "onFileSystem:ssh",
     "onFileSystem:sftp"

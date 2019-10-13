@@ -5,7 +5,7 @@ import * as path from 'path';
 
 const documentSelector = [
     { language: 'home-assistant', scheme: 'file' },
-    { language: 'home-assistant', scheme: 'untitled' }
+    { language: 'home-assistant', scheme: 'untitled' },
     // { language: 'yaml', scheme: 'file' },
     // { language: 'yaml', scheme: 'untitled' } 
 ];
