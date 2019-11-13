@@ -1,13 +1,10 @@
-// import { LanguageClient, LanguageClientOptions, TransportKind, ServerOptions } from 'vscode-languageclient';
-import {ExtensionContext, LanguageClient, LanguageClientOptions, ServerOptions, TransportKind, workspace} from 'coc.nvim';
+import { ExtensionContext, LanguageClient, LanguageClientOptions, ServerOptions, TransportKind, workspace } from 'coc.nvim';
 import * as path from 'path';
 
 
 const documentSelector = [
     { language: 'home-assistant', scheme: 'file' },
     { language: 'home-assistant', scheme: 'untitled' },
-    // { language: 'yaml', scheme: 'file' },
-    // { language: 'yaml', scheme: 'untitled' } 
 ];
 
 export function activate(context: ExtensionContext): Promise<void> {
@@ -41,10 +38,6 @@ export function activate(context: ExtensionContext): Promise<void> {
 
     let client = new LanguageClient('home-assistant', 'Home Assistant Language Server', serverOptions, clientOptions);
 
-    // is this really needed?
-    // languages.setLanguageConfiguration('home-assistant', { wordPattern: /("(?:[^\\\"]*(?:\\.)?)*"?)|[^\s{}\[\],:]+/ });
-
-    // context.subscriptions.push(reporter);
     context.subscriptions.push(client.start());
 
     client.onReady().then(async () => {
@@ -54,27 +47,11 @@ export function activate(context: ExtensionContext): Promise<void> {
         });
     }).catch((reason) => {
         console.error(JSON.stringify(reason));
-        // reporter.sendTelemetryEvent('extension.languageserver.onReadyError', { 'reason': JSON.stringify(reason) });
     });
 
-    let fileAssociations = workspace.getConfiguration().get("files.associations");
-    if (!fileAssociations) {
-        workspace.getConfiguration().update("files.associations", { "*.yaml": "home-assistant" }, false);
-    } else if (!fileAssociations["*.yaml"]) {
-        workspace.getConfiguration().update("files.associations", { "*.yaml": "home-assistant" }, false);
-    }
-    
     return;
 }
 
 export function deactivate() {
-    // reporter.dispose();
 }
 
-// function generateVersionString(extension: vscode.Extension<any>): string {
-//     // if the extensionPath is a Git repo, this is probably an extension developer
-//     const isDevMode: boolean = extension ? fs.existsSync(extension.extensionPath + '/.git') : false;
-//     const baseVersion: string = extension ? extension.packageJSON.version : "0.0.0";
-
-//     return isDevMode ? `${baseVersion}-dev` : baseVersion;
-// }
